@@ -1,6 +1,9 @@
 package grammar;
 
 public class Rule {
+	private String leftSide;
+	private String rightSide;
+	
 	/**
 	 * @param leftSide
 	 * @param rightSide
@@ -10,8 +13,7 @@ public class Rule {
 		this.leftSide = leftSide;
 		this.rightSide = rightSide;
 	}
-	String leftSide;
-	String rightSide;
+	
 	/**
 	 * @return the leftSide
 	 */
