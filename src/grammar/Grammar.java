@@ -4,10 +4,11 @@ import java.util.HashSet;
 
 public class Grammar {
 	
-	HashSet<String> terminals;
-	HashSet<String> nonterminals;
-	HashSet<Rule> rules;
-	String startsymbol;
+	private HashSet<String> terminals;		//Set of terminals
+	private HashSet<String> nonterminals;	//set of nonterminals
+	private HashSet<Rule> rules;			//set of rules of grammar
+	private String startsymbol;				//starting symbol of grammar
+	private Rule startrule;					//rule that contains starting symbol of grammar
 	
 	
 	/**
@@ -15,13 +16,41 @@ public class Grammar {
 	 * @param nonterminals
 	 * @param rules
 	 * @param startsymbol
+	 * @throws Exception 
 	 */
-	public Grammar(HashSet<String> terminals, HashSet<String> nonterminals, HashSet<Rule> rules, String startsymbol) {
+	public Grammar(HashSet<String> terminals, HashSet<String> nonterminals, HashSet<Rule> rules, String startsymbol) throws Exception {
 		super();
 		this.terminals = terminals;
 		this.nonterminals = nonterminals;
-		this.rules = rules;
 		this.startsymbol = startsymbol;
+		
+		int checknont=0;  
+		int checkstart=0;
+		
+		for (Rule r: rules) {
+			if(r.getLeftSide().contains(startsymbol)) {		//Checks if at least one left side of rules contains starting symbol of grammar
+				startrule=r;
+				checkstart=checkstart+1;
+			}
+			for(String s : this.nonterminals) {				//Checks if all left sides of rules contains at least one nonterminal
+				if(r.getLeftSide().contains(s)) {
+					checknont=checknont++;
+				}
+			}
+		}
+		
+		if(checknont==rules.size()) {
+			throw new Exception("Left sides of Rules do not contain nonterminals");
+		}
+		else if(checkstart==0){
+			throw new Exception("Left sides of Rules do not contain starting symbol of grammar");
+		}
+		else if(checkstart>0 && checknont>0) {
+			this.rules=rules;
+		}
+		else {
+			throw new Exception("Unexpected error");
+		}
 	}
 
 
