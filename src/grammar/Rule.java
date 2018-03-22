@@ -1,14 +1,16 @@
 package grammar;
 
+import java.util.ArrayList;
+
 public class Rule {
-	private String leftSide;
-	private String rightSide;
+	private ArrayList<String> leftSide;
+	private ArrayList<String> rightSide;
 	
 	/**
 	 * @param leftSide
 	 * @param rightSide
 	 */
-	public Rule(String leftSide, String rightSide) {
+	public Rule(ArrayList<String> leftSide, ArrayList<String> rightSide) {
 		super();
 		this.leftSide = leftSide;
 		this.rightSide = rightSide;
@@ -17,25 +19,25 @@ public class Rule {
 	/**
 	 * @return the leftSide
 	 */
-	public String getLeftSide() {
+	public ArrayList<String> getLeftSide() {
 		return leftSide;
 	}
 	/**
 	 * @param leftSide the leftSide to set
 	 */
-	public void setLeftSide(String leftSide) {
+	public void setLeftSide(ArrayList<String> leftSide) {
 		this.leftSide = leftSide;
 	}
 	/**
 	 * @return the rightSide
 	 */
-	public String getRightSide() {
+	public ArrayList<String> getRightSide() {
 		return rightSide;
 	}
 	/**
 	 * @param rightSide the rightSide to set
 	 */
-	public void setRightSide(String rightSide) {
+	public void setRightSide(ArrayList<String> rightSide) {
 		this.rightSide = rightSide;
 	}
 	

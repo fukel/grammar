@@ -28,24 +28,34 @@ public class Grammar {
 		int checkstart=0;
 		
 		for (Rule r: rules) {
-			if(r.getLeftSide().contains(startsymbol)) {		//Checks if at least one left side of rules contains starting symbol of grammar
-				startrule=r;
-				checkstart=checkstart+1;
-			}
-			for(String s : this.nonterminals) {				//Checks if all left sides of rules contains at least one nonterminal
-				if(r.getLeftSide().contains(s)) {
-					checknont=checknont++;
+			for(int i=0;i<r.getLeftSide().size();i++) {		//Checks if at least one left side of rules contains starting symbol of grammar
+				if(r.getLeftSide().get(i).equals(startsymbol)) {
+					startrule=r;
+					checkstart=checkstart+1;
 				}
+			}
+			for(String s : this.nonterminals) {	
+															//Checks if all left sides of rules contains at least one nonterminal
+				for(int i=0;i<r.getLeftSide().size();i++) {
+					if(r.getLeftSide().get(i).equals(s)) {
+						checknont=checknont+1;
+						
+					}
+				}
+				
 			}
 		}
 		
-		if(checknont==rules.size()) {
+		if(checknont<rules.size()) {
 			throw new Exception("Left sides of Rules do not contain nonterminals");
 		}
 		else if(checkstart==0){
 			throw new Exception("Left sides of Rules do not contain starting symbol of grammar");
 		}
-		else if(checkstart>0 && checknont>0) {
+		else if(checkstart>1) {
+			throw new Exception("There is more than one rule with left side wich contains starting symbol of grammar");
+		}
+		else if(checkstart==1 && checknont>=rules.size()) {
 			this.rules=rules;
 		}
 		else {
@@ -115,6 +125,22 @@ public class Grammar {
 	 */
 	public void setStartsymbol(String startsymbol) {
 		this.startsymbol = startsymbol;
+	}
+
+
+	/**
+	 * @return the startrule
+	 */
+	public Rule getStartrule() {
+		return startrule;
+	}
+
+
+	/**
+	 * @param startrule the startrule to set
+	 */
+	public void setStartrule(Rule startrule) {
+		this.startrule = startrule;
 	}
 
 
