@@ -26,16 +26,30 @@ public class Grammar {
 		
 		int checknont=0;  
 		int checkstart=0;
+		int ok=0;
 		
 		for (Rule r: rules) {
-			for(int i=0;i<r.getLeftSide().size();i++) {		//Checks if at least one left side of rules contains starting symbol of grammar
+			//checks if left side of all rules is made only from terminal or nonterminal symbols
+			for (int i=0;i<r.getLeftSide().size();i++) {
+				if(!terminals.contains(r.getLeftSide().get(i))&&!nonterminals.contains(r.getLeftSide().get(i))) {
+					ok=ok+1;
+				}
+			}
+			//checks if right side of all rules is made only from terminal or nonterminal symbols										
+			for (int i=0;i<r.getRightSide().size();i++) {
+				if(!terminals.contains(r.getRightSide().get(i))&&!nonterminals.contains(r.getRightSide().get(i))) {
+					ok=ok+1;
+				}
+			}
+			//Checks if at least one left side of rules contains starting symbol of grammar
+			for(int i=0;i<r.getLeftSide().size();i++) {		
 				if(r.getLeftSide().get(i).equals(startsymbol)) {
 					startrule=r;
 					checkstart=checkstart+1;
 				}
 			}
-			for(String s : this.nonterminals) {	
-															//Checks if all left sides of rules contains at least one nonterminal
+			//Checks if all left sides of rules contains at least one nonterminal
+			for(String s : this.nonterminals) {												
 				for(int i=0;i<r.getLeftSide().size();i++) {
 					if(r.getLeftSide().get(i).equals(s)) {
 						checknont=checknont+1;
@@ -46,16 +60,17 @@ public class Grammar {
 			}
 		}
 		
+
 		if(checknont<rules.size()) {
 			throw new Exception("Left sides of Rules do not contain nonterminals");
 		}
 		else if(checkstart==0){
 			throw new Exception("Left sides of Rules do not contain starting symbol of grammar");
 		}
-		else if(checkstart>1) {
-			throw new Exception("There is more than one rule with left side wich contains starting symbol of grammar");
+		else if(ok>0) {
+			throw new Exception("Rules have to be made only from terminal or nonterminal symbols");
 		}
-		else if(checkstart==1 && checknont>=rules.size()) {
+		else if(checkstart>0 && checknont>=rules.size()) {
 			this.rules=rules;
 		}
 		else {
