@@ -9,6 +9,7 @@ public class Grammar {
 	private HashSet<Rule> rules;			//set of rules of grammar
 	private String startsymbol;				//starting symbol of grammar
 	private Rule startrule;					//rule that contains starting symbol of grammar
+	private String epsilon = "epsilon";
 	
 	
 	/**
@@ -31,13 +32,13 @@ public class Grammar {
 		for (Rule r: rules) {
 			//checks if left side of all rules is made only from terminal or nonterminal symbols
 			for (int i=0;i<r.getLeftSide().size();i++) {
-				if(!terminals.contains(r.getLeftSide().get(i))&&!nonterminals.contains(r.getLeftSide().get(i))) {
+				if(!terminals.contains(r.getLeftSide().get(i))&&!nonterminals.contains(r.getLeftSide().get(i))||r.getLeftSide().get(i).equals(epsilon)) {
 					ok=ok+1;
 				}
 			}
 			//checks if right side of all rules is made only from terminal or nonterminal symbols										
 			for (int i=0;i<r.getRightSide().size();i++) {
-				if(!terminals.contains(r.getRightSide().get(i))&&!nonterminals.contains(r.getRightSide().get(i))) {
+				if(!terminals.contains(r.getRightSide().get(i))&&!nonterminals.contains(r.getRightSide().get(i))&&!r.getRightSide().get(i).equals(epsilon)) {
 					ok=ok+1;
 				}
 			}

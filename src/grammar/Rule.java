@@ -29,7 +29,7 @@ public class Rule {
 		this.leftSide = leftSide;
 	}
 	/**
-	 * @return the rightSide
+	 * @return the symbols on the right side of the rule
 	 */
 	public ArrayList<String> getRightSide() {
 		return rightSide;
