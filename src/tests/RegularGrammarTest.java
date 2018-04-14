@@ -9,6 +9,8 @@ import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 
+import automata.NondeterministicFinAutomaton;
+import automata.TransitionFunction;
 import grammar.Grammar;
 import grammar.RegularGrammar;
 import grammar.Rule;
@@ -53,6 +55,14 @@ public class RegularGrammarTest {
 		rules3= new HashSet<Rule>(Arrays.asList(rule1,rule2,rule4));	//test3
 		rules4= new HashSet<Rule>(Arrays.asList(rule1,rule2,rule5));	//test4
 		rules5= new HashSet<Rule>(Arrays.asList(rule1,rule2,rule6));	//test5
+		
+		TransitionFunction f = new TransitionFunction(nonterminals,terminals);
+		f.showTable();
+		f.add("A", "a", "1");
+		f.showTable();
+		Grammar g = new RegularGrammar(terminals, nonterminals, rules1, startsymbol);
+		
+		NondeterministicFinAutomaton a = new NondeterministicFinAutomaton((RegularGrammar) g);
 	}
 
 	@Test
