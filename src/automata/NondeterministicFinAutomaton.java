@@ -41,6 +41,7 @@ public class NondeterministicFinAutomaton {
 			this.acceptingStates.add(g.getStartsymbol());
 		}
 		this.acceptingStates.add(qf);
+
 		this.transitionFunction = new TransitionFunction(this.states, this.inputSymbols);
 		for (Rule r : g.getRules()) {
 			if(r.getRightSide().size()==1) {
