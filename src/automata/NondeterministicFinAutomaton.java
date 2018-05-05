@@ -35,12 +35,23 @@ public class NondeterministicFinAutomaton {
 		this.states=g.getNonterminals();
 		this.states.add(qf);
 		this.inputSymbols=g.getTerminals();
+		//if there is an epsilon in right side of the rules, adds epsilon to inputSymbols
+		int pom=0;
+		for (Rule r : g.getRules()) {
+			if(r.getRightSide().get(0).contains(epsilon)) {
+				pom++;
+			}
+		}
+		if(pom>0) {
+			this.inputSymbols.add(epsilon);
+		}
 		this.initialState=g.getStartsymbol();
 		this.acceptingStates = new HashSet<String>();
 		if(g.getStartrule().getRightSide().equals(epsilon)) {
 			this.acceptingStates.add(g.getStartsymbol());
 		}
 		this.acceptingStates.add(qf);
+
 		this.transitionFunction = new TransitionFunction(this.states, this.inputSymbols);
 		for (Rule r : g.getRules()) {
 			if(r.getRightSide().size()==1) {

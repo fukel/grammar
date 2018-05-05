@@ -21,6 +21,9 @@ public class NFATest {
 	HashSet<String> terminals2;
 	HashSet<String> nonterminals2;
 	
+	HashSet<String> terminals3;
+	HashSet<String> nonterminals3;
+	
 	Rule rule1;
 	Rule rule2;
 	Rule rule3;
@@ -41,15 +44,21 @@ public class NFATest {
 	Rule rule17;
 	Rule rule18;
 	
+	Rule rule19;
+	Rule rule20;
+	Rule rule21;
+	Rule rule22;
+
+	
 	HashSet<Rule> rules1;
 	HashSet<Rule> rules2;
 	HashSet<Rule> rules3;
 	HashSet<Rule> rules4;
 	HashSet<Rule> rules5;
 	
-	String startsymbol,startsymbol2;
+	String startsymbol,startsymbol2,startsymbol3;
 	
-	Grammar g,g2;
+	Grammar g,g2,g3;
 
 	@Before
 	public void setUp() throws Exception {
@@ -91,6 +100,21 @@ public class NFATest {
 		startsymbol2 = "S";
 		
 		g2 = new RegularGrammar(terminals2, nonterminals2, rules2, startsymbol2);
+		
+		terminals3 = new HashSet<String>(Arrays.asList("a","b","c"));		//Set of terminals
+		nonterminals3 = new HashSet<String>(Arrays.asList("S","A"));
+		
+		rule19 = new Rule(new ArrayList<String>(Arrays.asList("S")), new ArrayList<String>(Arrays.asList("a","S")));
+		rule20 = new Rule(new ArrayList<String>(Arrays.asList("S")), new ArrayList<String>(Arrays.asList("b","A")));
+		rule21 = new Rule(new ArrayList<String>(Arrays.asList("A")), new ArrayList<String>(Arrays.asList("epsilon")));
+		rule22 = new Rule(new ArrayList<String>(Arrays.asList("A")), new ArrayList<String>(Arrays.asList("c","A")));
+
+		rules3= new HashSet<Rule>(Arrays.asList(rule19,rule20,rule21,rule22));
+		
+		startsymbol3 = "S";
+		
+		g3 = new RegularGrammar(terminals3, nonterminals3, rules3, startsymbol3);
+
 	}
 
 	@Test
@@ -98,6 +122,24 @@ public class NFATest {
 		try {
 			NondeterministicFinAutomaton n = new NondeterministicFinAutomaton((RegularGrammar) g);
 			NondeterministicFinAutomaton n2 = new NondeterministicFinAutomaton((RegularGrammar) g2);
+			//test of method getAL of TransitionFunction
+			ArrayList<String> get = n2.getTransitionFunction().getAL("B", "0");
+			System.out.println(String.valueOf(get.size()));
+			for(int i=0;i<get.size();i++) {
+				System.out.println("array:"+get.get(i));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			fail("Unexpected exception");
+			e.printStackTrace();
+		}
+	}
+	@Test
+	//test of adding epsilon to inputSymbols
+	public void test2() {
+		try {
+			NondeterministicFinAutomaton n3 = new NondeterministicFinAutomaton((RegularGrammar) g3);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			fail("Unexpected exception");

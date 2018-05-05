@@ -56,13 +56,13 @@ public class RegularGrammarTest {
 		rules4= new HashSet<Rule>(Arrays.asList(rule1,rule2,rule5));	//test4
 		rules5= new HashSet<Rule>(Arrays.asList(rule1,rule2,rule6));	//test5
 		
-		TransitionFunction f = new TransitionFunction(nonterminals,terminals);
+		/*TransitionFunction f = new TransitionFunction(nonterminals,terminals);
 		f.showTable();
 		f.add("A", "a", "1");
-		f.showTable();
+		f.showTable();*/
 		Grammar g = new RegularGrammar(terminals, nonterminals, rules1, startsymbol);
 		
-		NondeterministicFinAutomaton a = new NondeterministicFinAutomaton((RegularGrammar) g);
+		//NondeterministicFinAutomaton a = new NondeterministicFinAutomaton((RegularGrammar) g);
 	}
 
 	@Test
