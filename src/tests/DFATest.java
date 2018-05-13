@@ -24,6 +24,7 @@ public class DFATest {
 	Rule rule20;
 	Rule rule21;
 	Rule rule22;
+	Rule rule23;
 	
 	HashSet<String> states, inputSymbols,acceptingStates;
 	String initialState;
