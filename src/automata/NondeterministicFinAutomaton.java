@@ -13,7 +13,7 @@ public class NondeterministicFinAutomaton {
 	private TransitionFunction transitionFunction;
 	private HashSet<String> acceptingStates;
 	private String epsilon = "epsilon";
-	private String qf = "qf";
+	private String qf = "q";
 		/**
 	 * @param states
 	 * @param inputSymbols
@@ -35,19 +35,30 @@ public class NondeterministicFinAutomaton {
 		this.states=g.getNonterminals();
 		this.states.add(qf);
 		this.inputSymbols=g.getTerminals();
+		
+
+		
 		//if there is an epsilon in right side of the rules, adds epsilon to inputSymbols
 		int pom=0;
 		for (Rule r : g.getRules()) {
-			if(r.getRightSide().get(0).contains(epsilon)) {
+			if(r.getRightSide().get(0).equals("epsilon")) {
 				pom++;
 			}
 		}
 		if(pom>0) {
-			this.inputSymbols.add(epsilon);
+			this.inputSymbols.add("epsilon");
 		}
+		
+		/*System.out.println("NFA inputsymbols after: ");
+		for(String s:this.inputSymbols) {
+			System.out.print(s+",");
+		}
+		System.out.print("\n");*/
+		
+		
 		this.initialState=g.getStartsymbol();
 		this.acceptingStates = new HashSet<String>();
-		if(g.getStartrule().getRightSide().equals(epsilon)) {
+		if(g.getStartrule().getRightSide().equals("epsilon")) {
 			this.acceptingStates.add(g.getStartsymbol());
 		}
 		this.acceptingStates.add(qf);

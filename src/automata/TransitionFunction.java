@@ -16,9 +16,11 @@ public class TransitionFunction {
 	 * be separated with sign "#".
 	 * 
 	 */
-	public TransitionFunction(String[][] table) {
+	public TransitionFunction(String[][] table,HashSet<String> rowHeaders, HashSet<String> columnHeaders) {
 		super();
 		this.table = table;
+		this.rowHeaders=rowHeaders;
+		this.columnHeaders=columnHeaders;
 	}
 
 	/**
@@ -29,32 +31,37 @@ public class TransitionFunction {
 	public TransitionFunction(HashSet<String> rowHeaders, HashSet<String> columnHeaders) {
 		this.rowHeaders = rowHeaders;
 		this.columnHeaders = columnHeaders;
-		
-		this.table = new String[rowHeaders.size()+1][columnHeaders.size()+1];
-		for (int a = 0;a<rowHeaders.size()+1;a++) {
-			for (int b = 0;b<columnHeaders.size()+1;b++) {
+
+
+		this.table = new String[this.rowHeaders.size()+1][this.columnHeaders.size()+1];
+		for (int a = 0;a<this.rowHeaders.size()+1;a++) {
+			for (int b = 0;b<this.columnHeaders.size()+1;b++) {
 				this.table[a][b]="-";
 			}
 		}
 		int i = 1;
-		for(String s :rowHeaders) {
+		for(String s :this.rowHeaders) {
 			
 			
 			this.table[i][0]=s;
 			i++;
 		}
 		int j = 1;
-		for(String s :columnHeaders) {
+		for(String s :this.columnHeaders) {
 			
 			this.table[0][j]=s;
 			j++;
 		}
 
-		
+		/*System.out.print("TF Column headers after constructor ");
+		for(String s : this.columnHeaders) {
+			System.out.print(s+",");
+		}
+		System.out.print("\n");*/
 		
 	}
 	public void add(String currentState, String inputSymbol, String data) {
-		
+		//pridat vznimku na zly vstup
 		int pom1 = 0;
 		for (int i = 0;i<rowHeaders.size()+1;i++) {
 			if(table[i][0].equals(currentState)) {
@@ -74,14 +81,17 @@ public class TransitionFunction {
 		else {
 			table[pom1][pom2]=table[pom1][pom2]+"#"+data;	//"#" represent separator, otherwise we should implement 3D array
 		}
+		  
 	}
 	public void showTable() {
 		   for (String[] row : table){
 			    System.out.println(Arrays.toString(row));
 			   }
 
+
 	}
 	public String get(String currentState, String inputSymbol) {
+		//pridat vznimku na zly vstup
 		int pom1 = 0;
 		for (int i = 0;i<rowHeaders.size()+1;i++) {
 			if(table[i][0].equals(currentState)) {
@@ -90,7 +100,9 @@ public class TransitionFunction {
 		}
 		int pom2 = 0;
 		for (int i = 0;i<columnHeaders.size()+1;i++) {
+			
 			if(table[0][i].equals(inputSymbol)) {
+				
 				pom2=i;
 			}
 		}
@@ -99,14 +111,25 @@ public class TransitionFunction {
 	}
 	//returns array list of strings of cell in table, searches for indexes of separator and creates substrings, then adds them to array list
 	public ArrayList<String> getAL(String currentState, String inputSymbol) {
+		//pridat vznimku na zly vstup
 		int pom1 = 0;
 		for (int i = 0;i<rowHeaders.size()+1;i++) {
 			if(table[i][0].equals(currentState)) {
 				pom1=i;
 			}
 		}
+		
+		/*System.out.print("Column headers pri getAL");
+		for(String s : columnHeaders) {
+			System.out.print(s+",");
+		}
+		System.out.print("\n");
+		
+		System.out.println("Column headers size "+String.valueOf(this.columnHeaders.size()));*/
+		
 		int pom2 = 0;
 		for (int i = 0;i<columnHeaders.size()+1;i++) {
+			
 			if(table[0][i].equals(inputSymbol)) {
 				pom2=i;
 			}
@@ -153,8 +176,10 @@ public class TransitionFunction {
 			
 			return ret;
 		}
+		//if string doesnt contain separator, returns value
 		else {
 			ret.add(table[pom1][pom2]);
+			//System.out.println(String.valueOf(pom1)+" "+String.valueOf(pom2));
 			return ret;
 		}
 		
