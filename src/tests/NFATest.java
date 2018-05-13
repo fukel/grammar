@@ -139,7 +139,7 @@ public class NFATest {
 	public void test2() {
 		try {
 			NondeterministicFinAutomaton n3 = new NondeterministicFinAutomaton((RegularGrammar) g3);
-			
+			System.out.println(n3.getTransitionFunction().getColumnHeaders().size());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			fail("Unexpected exception");
