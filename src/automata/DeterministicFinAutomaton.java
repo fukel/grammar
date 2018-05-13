@@ -136,10 +136,12 @@ public class DeterministicFinAutomaton {
 					}
 				}
 			}
-			this.transitionFunction.put(state, pomocna);
-			System.out.println("----zaciatok TF . get "+state+" ---");
-			System.out.println(this.transitionFunction.get(state));
-			System.out.println("----koniec TF . get ---");
+			if(!pomocna.isEmpty()) {
+				this.transitionFunction.put(state, pomocna);
+				System.out.println("----zaciatok TF . get "+state+" ---");
+				System.out.println(this.transitionFunction.get(state));
+				System.out.println("----koniec TF . get ---");
+			}
 		}
 		//finds accepting states in set of states
 		this.acceptingStates = new ArrayList<HashSet<String>>();
