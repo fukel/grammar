@@ -53,6 +53,14 @@ public class DFATest {
 		g3 = new RegularGrammar(terminals3, nonterminals3, rules3, startsymbol3);
 		n3 = new NondeterministicFinAutomaton((RegularGrammar) g3);
 		
+		/*transition function of n3
+		 	[-, epsilon, a, b, c]
+			[A, q, -, -, A]
+			[q, -, -, -, -]
+			[S, -, S, A, -]
+		 * 
+		 */
+		
 		
 		states = new HashSet<String>();
 		inputSymbols = new HashSet<String>();
@@ -80,6 +88,16 @@ public class DFATest {
 		
 		n4=new NondeterministicFinAutomaton(states, inputSymbols, initialState, tf, acceptingStates);
 		
+		/*transition function of n4
+	 	[-, epsilon, a, b]
+		[A, E, C#E, -]
+		[q, -, -, -]
+		[C, F, -, E]
+		[E, -, q, -]
+		[F, -, C, -]
+	 * 
+	 */
+		
 		
 	}
 
@@ -88,11 +106,32 @@ public class DFATest {
 		try {
 			DeterministicFinAutomaton d4 = new DeterministicFinAutomaton( n4);
 			d4.showDFA();
+			/*
+			 Transition Function of d4:
+			 Format: [State] : {inputSymbol=[resultState]}
+			 
+				[E] : {a=[q]}
+				[A, E] : {a=[q, C, E, F]}
+				[C, F] : {a=[C, F], b=[E]}
+				[q, C, F] : {a=[C, F], b=[E]}
+				[q, C, E, F] : {a=[q, C, F], b=[E]}
+			 */
+			
+			
 			DeterministicFinAutomaton d3 = new DeterministicFinAutomaton( n3);
 			
 
 			
 			d3.showDFA();
+			
+			/*
+			 Transition Function of d3:
+			 Format: [State] : {inputSymbol=[resultState]}
+			 
+				[A, q] : {c=[A, q]}
+				[S] : {a=[S], b=[A, q]}
+			 */
+			
 			/*
 			HashSet<String> set = new HashSet<String>();
 			set.add("S");
