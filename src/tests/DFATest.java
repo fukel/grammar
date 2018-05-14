@@ -33,7 +33,7 @@ public class DFATest {
 	
 	HashSet<Rule> rules3;
 	String startsymbol3;
-	Grammar g3;
+	RegularGrammar g3;
 	NondeterministicFinAutomaton n3,n4;
 
 	@Before
@@ -120,11 +120,13 @@ public class DFATest {
 			 */
 			
 			
-			DeterministicFinAutomaton d3 = new DeterministicFinAutomaton( n3);
+			
+			DeterministicFinAutomaton d3 = new DeterministicFinAutomaton(n3);
 			
 
 			
 			d3.showDFA();
+			
 			
 			/*
 			 Transition Function of d3:
@@ -133,6 +135,9 @@ public class DFATest {
 				[A, q] : {c=[A, q]}
 				[S] : {a=[S], b=[A, q]}
 			 */
+			System.out.println("#########d5###########");
+			DeterministicFinAutomaton d5 = new DeterministicFinAutomaton( g3);
+			d5.showDFA();
 			
 			/*
 			HashSet<String> set = new HashSet<String>();

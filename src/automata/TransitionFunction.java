@@ -60,26 +60,34 @@ public class TransitionFunction {
 		System.out.print("\n");*/
 		
 	}
-	public void add(String currentState, String inputSymbol, String data) {
-		//pridat vznimku na zly vstup
-		int pom1 = 0;
-		for (int i = 0;i<rowHeaders.size()+1;i++) {
-			if(table[i][0].equals(currentState)) {
-				pom1=i;
-			}
+	public void add(String currentState, String inputSymbol, String data) throws Exception {
+		
+		if(!rowHeaders.contains(currentState)) {
+			throw new Exception("current state is not present in the table");
 		}
-		int pom2 = 0;
-		for (int i = 0;i<columnHeaders.size()+1;i++) {
-			if(table[0][i].equals(inputSymbol)) {
-				pom2=i;
-			}
-		}
-
-		if(table[pom1][pom2].equals("-")){
-			table[pom1][pom2]=data;
+		else if(!columnHeaders.contains(inputSymbol)) {
+			throw new Exception("input symbol is not present in the table");
 		}
 		else {
-			table[pom1][pom2]=table[pom1][pom2]+"#"+data;	//"#" represent separator, otherwise we should implement 3D array
+			int pom1 = 0;
+			for (int i = 0;i<rowHeaders.size()+1;i++) {
+				if(table[i][0].equals(currentState)) {
+					pom1=i;
+				}
+			}
+			int pom2 = 0;
+			for (int i = 0;i<columnHeaders.size()+1;i++) {
+				if(table[0][i].equals(inputSymbol)) {
+					pom2=i;
+				}
+			}
+	
+			if(table[pom1][pom2].equals("-")){
+				table[pom1][pom2]=data;
+			}
+			else {
+				table[pom1][pom2]=table[pom1][pom2]+"#"+data;	//"#" represent separator, otherwise we should implement 3D array
+			}
 		}
 		  
 	}
@@ -90,97 +98,111 @@ public class TransitionFunction {
 
 
 	}
-	public String get(String currentState, String inputSymbol) {
-		//pridat vznimku na zly vstup
-		int pom1 = 0;
-		for (int i = 0;i<rowHeaders.size()+1;i++) {
-			if(table[i][0].equals(currentState)) {
-				pom1=i;
-			}
+	public String get(String currentState, String inputSymbol) throws Exception {
+		if(!rowHeaders.contains(currentState)) {
+			throw new Exception("current state is not present in the table");
 		}
-		int pom2 = 0;
-		for (int i = 0;i<columnHeaders.size()+1;i++) {
-			
-			if(table[0][i].equals(inputSymbol)) {
+		else if(!columnHeaders.contains(inputSymbol)) {
+			throw new Exception("input symbol is not present in the table");
+		}
+		else {
+			int pom1 = 0;
+			for (int i = 0;i<rowHeaders.size()+1;i++) {
+				if(table[i][0].equals(currentState)) {
+					pom1=i;
+				}
+			}
+			int pom2 = 0;
+			for (int i = 0;i<columnHeaders.size()+1;i++) {
 				
-				pom2=i;
+				if(table[0][i].equals(inputSymbol)) {
+					
+					pom2=i;
+				}
 			}
+			return table[pom1][pom2];
 		}
-		return table[pom1][pom2];
 		
 	}
 	//returns array list of strings of cell in table, searches for indexes of separator and creates substrings, then adds them to array list
-	public ArrayList<String> getAL(String currentState, String inputSymbol) {
-		//pridat vznimku na zly vstup
-		int pom1 = 0;
-		for (int i = 0;i<rowHeaders.size()+1;i++) {
-			if(table[i][0].equals(currentState)) {
-				pom1=i;
-			}
+	public ArrayList<String> getAL(String currentState, String inputSymbol) throws Exception {
+		if(!rowHeaders.contains(currentState)) {
+			throw new Exception("current state is not present in the table");
 		}
-		
-		/*System.out.print("Column headers pri getAL");
-		for(String s : columnHeaders) {
-			System.out.print(s+",");
+		else if(!columnHeaders.contains(inputSymbol)) {
+			throw new Exception("input symbol is not present in the table");
 		}
-		System.out.print("\n");
-		
-		System.out.println("Column headers size "+String.valueOf(this.columnHeaders.size()));*/
-		
-		int pom2 = 0;
-		for (int i = 0;i<columnHeaders.size()+1;i++) {
-			
-			if(table[0][i].equals(inputSymbol)) {
-				pom2=i;
-			}
-		}
-		
-		ArrayList<String> ret= new ArrayList<String>();
-		if(table[pom1][pom2].contains("#")) {
-			String word=table[pom1][pom2];
-			//word="B#qf#C#a#2ab#bac";
-			String subword;
-			int index=word.indexOf("#");
-			ArrayList<Integer> indexes= new ArrayList<Integer>();
-			while(index>=0) {
-				if(index>=0) {
-				indexes.add(index);
-				index=word.indexOf("#", index+1);
-				
-				}
-			}
-			//substring between charat(0) and first index of separator
-			subword=word.substring(word.indexOf(String.valueOf(word.charAt(0))), indexes.get(0));
-			ret.add(subword);
-			
-			//System.out.println("subword:"+subword);
-			
-			//substring inside of word
-			if(indexes.size()>1) {
-				for(int i=0;i<indexes.size()-1;i++) {
-					//System.out.println("sme tu i="+String.valueOf(i));
-					
-					subword=word.substring(indexes.get(i)+1, indexes.get(i+1));
-					ret.add(subword);
-					
-					//System.out.println("subwordfor:"+subword);
-					
-				}
-			}
-			
-			//substring at the end of word
-			subword=word.substring(indexes.get(indexes.size()-1)+1, word.indexOf(String.valueOf(word.charAt(word.length()-1)))+1);
-			ret.add(subword);
-			
-			//System.out.println("subword:"+subword);
-			
-			return ret;
-		}
-		//if string doesnt contain separator, returns value
 		else {
-			ret.add(table[pom1][pom2]);
-			//System.out.println(String.valueOf(pom1)+" "+String.valueOf(pom2));
-			return ret;
+			int pom1 = 0;
+			for (int i = 0;i<rowHeaders.size()+1;i++) {
+				if(table[i][0].equals(currentState)) {
+					pom1=i;
+				}
+			}
+			
+			/*System.out.print("Column headers pri getAL");
+			for(String s : columnHeaders) {
+				System.out.print(s+",");
+			}
+			System.out.print("\n");
+			
+			System.out.println("Column headers size "+String.valueOf(this.columnHeaders.size()));*/
+			
+			int pom2 = 0;
+			for (int i = 0;i<columnHeaders.size()+1;i++) {
+				
+				if(table[0][i].equals(inputSymbol)) {
+					pom2=i;
+				}
+			}
+			
+			ArrayList<String> ret= new ArrayList<String>();
+			if(table[pom1][pom2].contains("#")) {
+				String word=table[pom1][pom2];
+				//word="B#qf#C#a#2ab#bac";
+				String subword;
+				int index=word.indexOf("#");
+				ArrayList<Integer> indexes= new ArrayList<Integer>();
+				while(index>=0) {
+					if(index>=0) {
+					indexes.add(index);
+					index=word.indexOf("#", index+1);
+					
+					}
+				}
+				//substring between charat(0) and first index of separator
+				subword=word.substring(word.indexOf(String.valueOf(word.charAt(0))), indexes.get(0));
+				ret.add(subword);
+				
+				//System.out.println("subword:"+subword);
+				
+				//substring inside of word
+				if(indexes.size()>1) {
+					for(int i=0;i<indexes.size()-1;i++) {
+						//System.out.println("sme tu i="+String.valueOf(i));
+						
+						subword=word.substring(indexes.get(i)+1, indexes.get(i+1));
+						ret.add(subword);
+						
+						//System.out.println("subwordfor:"+subword);
+						
+					}
+				}
+				
+				//substring at the end of word
+				subword=word.substring(indexes.get(indexes.size()-1)+1, word.indexOf(String.valueOf(word.charAt(word.length()-1)))+1);
+				ret.add(subword);
+				
+				//System.out.println("subword:"+subword);
+				
+				return ret;
+			}
+			//if string doesnt contain separator, returns value
+			else {
+				ret.add(table[pom1][pom2]);
+				//System.out.println(String.valueOf(pom1)+" "+String.valueOf(pom2));
+				return ret;
+			}
 		}
 		
 	}
