@@ -8,6 +8,9 @@ import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Set;
 
+import grammar.Grammar;
+import grammar.RegularGrammar;
+
 public class DeterministicFinAutomaton {
 	private ArrayList<HashSet<String>> states;
 	private HashSet<String> inputSymbols;
@@ -78,7 +81,13 @@ public class DeterministicFinAutomaton {
 				System.out.println("actual input symbol "+is);
 				if(!is.equals("epsilon")) {
 					for(String stInNKA :state) {
-						pomAL=n.getTransitionFunction().getAL(stInNKA, is);
+						pomAL=new ArrayList<String>();
+						try {
+							pomAL=n.getTransitionFunction().getAL(stInNKA, is);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						System.out.println("stInNKA "+stInNKA + " input symbol "+ is);
 						System.out.print("pomAL:");
 						for(String s:pomAL) {
@@ -86,9 +95,11 @@ public class DeterministicFinAutomaton {
 						}
 						System.out.print("\n");
 						//wont add "-" to the result
-						for (String s : pomAL) {
-							if(!s.equals("-")) {
-								pomresult.add(s);
+						if(pomAL.size()>0) {
+							for (String s : pomAL) {
+								if(!s.equals("-")) {
+									pomresult.add(s);
+								}
 							}
 						}
 						System.out.println("pomresult ");
@@ -156,9 +167,24 @@ public class DeterministicFinAutomaton {
 				
 		}
 		}
-		
+		//this.inputSymbols.remove("epsilon");
+	}
+	public DeterministicFinAutomaton(RegularGrammar g) {
+		try {
+			NondeterministicFinAutomaton n = new NondeterministicFinAutomaton(g);
+			DeterministicFinAutomaton d = new DeterministicFinAutomaton(n);
+			this.states = d.getStates();
+			this.inputSymbols = d.getInputSymbols();
+			this.initialState = d.getInitialState();
+			this.acceptingStates=d.getAcceptingStates();
+			this.transitionFunction=d.getTransitionFunction();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
+
 	private HashSet<String> closure (HashSet<String> states, TransitionFunction transitionFunction){
 		ArrayList<String> pom = new ArrayList<String>();
 		ArrayList<String> statesAL = new ArrayList<String>(states);
@@ -175,7 +201,12 @@ public class DeterministicFinAutomaton {
 					String s = it.next();
 					System.out.println("State "+s);
 					//adds states, to which automaton can get on epsilon
-					pom2=transitionFunction.getAL(s, "epsilon");
+					try {
+						pom2=transitionFunction.getAL(s, "epsilon");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					for(int i=0;i<pom2.size();i++) {
 						//state cant be "-"
 						if(!pom2.get(i).equals("-")) {
@@ -196,17 +227,21 @@ public class DeterministicFinAutomaton {
 	
 	public void showDFA() {
 		System.out.println("---------showDFA------------");
-		System.out.println("States of DFA:");
+		System.out.println("-------States of DFA:-------");
 		for(int i = 0;i<states.size();i++) {
 			for(String s : states.get(i)) {
 				System.out.print(s + ",");
 			}
 			System.out.print("\n");
 		}
-		System.out.println("Transition Function:");
+		System.out.println("-------Input Symbols-------");
+		System.out.println(String.valueOf(this.getInputSymbols()));
+		System.out.println("------Transition Function:------");
 		for (Map.Entry<HashSet<String>,HashMap<String,HashSet<String>>> entry : transitionFunction.entrySet()) {
 		    System.out.println(entry.getKey()+" : "+entry.getValue());
 		}
+		System.out.println("------Accepting states:------");
+		System.out.println(String.valueOf(this.getAcceptingStates()));
 	}
 
 	
