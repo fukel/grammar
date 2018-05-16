@@ -26,15 +26,15 @@ public class DFATest {
 	Rule rule22;
 	Rule rule23;
 	
-	HashSet<String> states, inputSymbols,acceptingStates;
-	String initialState;
-	TransitionFunction tf;
+	HashSet<String> states, inputSymbols,acceptingStates,states2, inputSymbols2,acceptingStates2;
+	String initialState,initialState2;
+	TransitionFunction tf,tf2;
 	
 	
 	HashSet<Rule> rules3;
 	String startsymbol3;
 	RegularGrammar g3;
-	NondeterministicFinAutomaton n3,n4;
+	NondeterministicFinAutomaton n3,n4,n2;
 
 	@Before
 	public void setUp() throws Exception {
@@ -98,6 +98,33 @@ public class DFATest {
 		[F, -, C, -]
 	 * 
 	 */
+		states2 = new HashSet<String>();
+		inputSymbols2 = new HashSet<String>();
+		acceptingStates2 = new HashSet<String>();
+		states2.add("q0");
+		states2.add("q1");
+		states2.add("q2");
+		states2.add("q3");
+		states2.add("qf");
+		acceptingStates2.add("qf");
+		inputSymbols2.add("0");
+		inputSymbols2.add("1");
+		inputSymbols2.add("epsilon");
+		tf2 = new TransitionFunction(states2,inputSymbols2);
+		tf2.add("q0", "0", "q0#q1");
+		tf2.add("q0", "1", "q0#q2");
+		tf2.add("q1", "0", "q1#q3");
+		tf2.add("q1", "1", "q1");
+		tf2.add("q2", "0", "q2");
+		tf2.add("q2", "1", "q2#qf");
+		tf2.add("q3", "0", "q3");
+		tf2.add("q3", "epsilon", "qf");
+		tf2.showTable();
+		initialState2=new String("q0");
+		n2=new NondeterministicFinAutomaton(states2, inputSymbols2, initialState2, tf2, acceptingStates2);
+
+		
+
 		
 		
 	}
@@ -145,6 +172,10 @@ public class DFATest {
 			HashMap<String, HashSet<String>> pom = d3.getTransitionFunction().get(set);
 			System.out.println(pom);
 			System.out.println(pom.get("a"));*/
+			
+			DeterministicFinAutomaton d2 = new DeterministicFinAutomaton( n2);
+			System.out.println("///////////d2///////////////");
+			d2.showDFA();
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
