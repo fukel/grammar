@@ -48,22 +48,23 @@ public class FirstAndFollowClassTest {
 			ContextFreeGrammar g = new ContextFreeGrammar(terminals, nonterminals, rules, startsymbol);
 			
 			
-		/*	System.out.println( FirstAndFollowClass.first(g, "S").toString() );
-			System.out.println( FirstAndFollowClass.first(g, "A").toString() );
-			System.out.println( FirstAndFollowClass.first(g, "B").toString() );
-			System.out.println( FirstAndFollowClass.first(g, "a").toString() );
-			System.out.println( FirstAndFollowClass.first(g, "b").toString() );
-			System.out.println( FirstAndFollowClass.first(g, "(").toString() );
-			System.out.println( FirstAndFollowClass.first(g, ")").toString() );
-			System.out.println( FirstAndFollowClass.first(g, "+").toString() ); */
+			System.out.println( "FIRST S:"+FirstAndFollowClass.first(g, "S").toString() );
+			System.out.println( "FIRST A:"+FirstAndFollowClass.first(g, "A").toString() );
+			System.out.println( "FIRST B:"+FirstAndFollowClass.first(g, "B").toString() );
+			System.out.println( "FIRST a:"+FirstAndFollowClass.first(g, "a").toString() );
+			System.out.println( "FIRST b:"+FirstAndFollowClass.first(g, "b").toString() );
+			System.out.println( "FIRST (:"+FirstAndFollowClass.first(g, "(").toString() );
+			System.out.println( "FIRST ):"+FirstAndFollowClass.first(g, ")").toString() );
+			System.out.println( "FIRST +:"+FirstAndFollowClass.first(g, "+").toString() );
 			
-			System.out.println( FirstAndFollowClass.Follow(g, "S").toString());
-			System.out.println( FirstAndFollowClass.Follow(g, "A").toString());
-			System.out.println( FirstAndFollowClass.Follow(g, "B").toString());
+			System.out.println( "FOLLOW S:"+FirstAndFollowClass.Follow(g, "S").toString());
+			System.out.println( "FOLLOW A:"+FirstAndFollowClass.Follow(g, "A").toString());
+			System.out.println( "FOLLOW B:"+FirstAndFollowClass.Follow(g, "B").toString());
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail("Unexpected exception");
 		}
 		//fail("Not yet implemented");
 	}

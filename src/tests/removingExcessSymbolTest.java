@@ -92,12 +92,19 @@ public class removingExcessSymbolTest {
 			//removingExcessSymbols.vytvorenieMnoziny2(g);
 			//System.out.println(removingExcessSymbols.vytvorNt(g).toString());
 			//System.out.println(removingExcessSymbols.vytvorVd(g).toString());
-			removingExcessSymbols.redukovanaGramatika(g);
+			ContextFreeGrammar g3 = removingExcessSymbols.redukovanaGramatika(g);
+			ContextFreeGrammar g4 = removingExcessSymbols.redukovanaGramatika(g1);
+			System.out.println("TERMINALS g3: "+g3.getTerminals().toString());
+			System.out.println("NONTERMINALS g3: "+g3.getNonterminals().toString());
+			
+			System.out.println("TERMINALS g4: "+g4.getTerminals().toString());
+			System.out.println("NONTERMINALS g4: "+g4.getNonterminals().toString());
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			fail("Unexepected exception");
 			e.printStackTrace();
+			fail("Unexepected exception");
+			
 		}
 	}
 
