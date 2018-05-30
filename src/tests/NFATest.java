@@ -121,13 +121,13 @@ public class NFATest {
 	public void test() {
 		try {
 			NondeterministicFinAutomaton n = new NondeterministicFinAutomaton((RegularGrammar) g);
+			System.out.println("Transition function of n");
+			n.getTransitionFunction().showTable();
+			
 			NondeterministicFinAutomaton n2 = new NondeterministicFinAutomaton((RegularGrammar) g2);
-			//test of method getAL of TransitionFunction
-			ArrayList<String> get = n2.getTransitionFunction().getAL("B", "0");
-			System.out.println(String.valueOf(get.size()));
-			for(int i=0;i<get.size();i++) {
-				System.out.println("array:"+get.get(i));
-			}
+			System.out.println("Transition function of n2");
+			n2.getTransitionFunction().showTable();
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			fail("Unexpected exception");
@@ -139,7 +139,9 @@ public class NFATest {
 	public void test2() {
 		try {
 			NondeterministicFinAutomaton n3 = new NondeterministicFinAutomaton((RegularGrammar) g3);
-			System.out.println(n3.getTransitionFunction().getColumnHeaders().size());
+			System.out.println("Transition function of n3");
+			n3.getTransitionFunction().showTable();
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			fail("Unexpected exception");

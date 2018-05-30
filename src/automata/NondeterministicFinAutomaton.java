@@ -76,7 +76,7 @@ public class NondeterministicFinAutomaton {
 			}
 			
 		}
-		this.transitionFunction.showTable();
+		//this.transitionFunction.showTable();
 
 	}
 		/**

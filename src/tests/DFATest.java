@@ -84,7 +84,7 @@ public class DFATest {
 		tf.add("C", "epsilon","F");
 		tf.add("E", "a", "q");
 		tf.add("F", "a", "C");
-		tf.showTable();
+		
 		initialState=new String("A");
 		
 		n4=new NondeterministicFinAutomaton(states, inputSymbols, initialState, tf, acceptingStates);
@@ -119,7 +119,7 @@ public class DFATest {
 		tf2.add("q2", "1", "q2#qf");
 		tf2.add("q3", "0", "q3");
 		tf2.add("q3", "epsilon", "qf");
-		tf2.showTable();
+		
 		initialState2=new String("q0");
 		n2=new NondeterministicFinAutomaton(states2, inputSymbols2, initialState2, tf2, acceptingStates2);
 
@@ -162,7 +162,7 @@ public class DFATest {
 				[A, q] : {c=[A, q]}
 				[S] : {a=[S], b=[A, q]}
 			 */
-			System.out.println("#########d5###########");
+			
 			DeterministicFinAutomaton d5 = new DeterministicFinAutomaton( g3);
 			d5.showDFA();
 			
@@ -174,7 +174,7 @@ public class DFATest {
 			System.out.println(pom.get("a"));*/
 			
 			DeterministicFinAutomaton d2 = new DeterministicFinAutomaton( n2);
-			System.out.println("///////////d2///////////////");
+			
 			d2.showDFA();
 			
 		} catch (Exception e) {
